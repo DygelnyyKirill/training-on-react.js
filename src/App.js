@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TodoList from './Todo/TodoList';
 import Header from './Header';
+import RegistrationForm from './RegistrationForm';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
     <Header items={menu} />
     <h1>React tutorial</h1>
     <TodoList todos={todos} onToggle={toggleTodo}/>
+    <RegistrationForm />  
   </div>
   );  
 }
