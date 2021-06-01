@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TodoList from './Todo/TodoList';
 import Header from './Header';
 import RegistrationForm from './RegistrationForm';
-
+import './App.css';
 
 function App() {
   const [todos, setTodos] = React.useState([
@@ -38,7 +38,7 @@ function App() {
   }
 
   return (
-  <div className="wrapper">
+  <div className="container">
     <Header items={menu} />
     <h1>React tutorial</h1>
     <TodoList todos={todos} onToggle={toggleTodo}/>
