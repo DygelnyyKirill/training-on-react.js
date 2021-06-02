@@ -3,6 +3,7 @@ import TodoList from './Todo/TodoList';
 import Header from './Header';
 import RegistrationForm from './RegistrationForm';
 import './App.css';
+import Context from './context'
 
 function App() {
   const [todos, setTodos] = React.useState([
@@ -37,13 +38,23 @@ function App() {
     )
   }
 
+  function removeTodo(id) {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
+
   return (
-  <div className="container">
-    <Header items={menu} />
-    <h1>React tutorial</h1>
-    <TodoList todos={todos} onToggle={toggleTodo}/>
-    <RegistrationForm />  
-  </div>
+    <Context.Provider value={{removeTodo}}>
+      <div className="container">
+        <Header items={menu} />
+          <h1>ToDo List</h1>
+          {todos.length ? (
+            <TodoList todos={todos} onToggle={toggleTodo}/>
+          ) : (
+            <p>No todos!</p>
+          )}
+        <RegistrationForm />  
+      </div>
+    </Context.Provider>
   );  
 }
 
