@@ -4,8 +4,9 @@ import Header from './Header';
 import RegistrationForm from './RegistrationForm';
 import './App.css';
 import Context from './context';
-import AddTodo from './Todo/AddTodo';
 import Loader from './Loader'
+
+const AddTodo = React.lazy(() => import('./Todo/AddTodo'))
 
 function App() {
   const [todos, setTodos] = React.useState([])
@@ -69,7 +70,9 @@ function App() {
       <div className="container">
         <Header items={menu} />
           <h1>ToDo List</h1>
-            <AddTodo onCreate={addTodo}/>
+            <React.Suspense fallback={<p>Loading...</p>}>
+              <AddTodo onCreate={addTodo}/>
+            </React.Suspense>
 
             {loading && <Loader />}
             {todos.length ? (
