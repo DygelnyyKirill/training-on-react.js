@@ -1,17 +1,26 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import TodoList from './Todo/TodoList';
 import Header from './Header';
 import RegistrationForm from './RegistrationForm';
 import './App.css';
 import Context from './context';
 import AddTodo from './Todo/AddTodo';
+import Loader from './Loader'
 
 function App() {
-  const [todos, setTodos] = React.useState([
-    {id: 1, completed: false, title: 'Go to work'},
-    {id: 2, completed: true, title: 'Go to park'},
-    {id: 3, completed: false, title: 'Go to the cinima'},
-  ]);
+  const [todos, setTodos] = React.useState([])
+  const [loading, setLoading] = React.useState(true)
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
+      .then(response => response.json())
+      .then(todos => {
+        setTimeout(() => {
+          setTodos(todos)
+          setLoading(false)
+        }, 2000)
+      })
+  }, [])
 
   const menu = [
     {
@@ -61,10 +70,12 @@ function App() {
         <Header items={menu} />
           <h1>ToDo List</h1>
             <AddTodo onCreate={addTodo}/>
+
+            {loading && <Loader />}
             {todos.length ? (
               <TodoList todos={todos} onToggle={toggleTodo}/>
-            ) : (
-            <p>No todos!</p>
+            ) : loading ? null : (
+              <p>No todos!</p>
           )}
         <RegistrationForm />  
       </div>
