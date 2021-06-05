@@ -5,6 +5,7 @@ import RegistrationForm from './RegistrationForm';
 import './App.css';
 import Context from './context';
 import Loader from './Loader'
+import Modal from './Modal/Modal'
 
 const AddTodo = React.lazy(() => import('./Todo/AddTodo'))
 
@@ -70,6 +71,7 @@ function App() {
       <div className="container">
         <Header items={menu} />
           <h1>ToDo List</h1>
+          <Modal />
             <React.Suspense fallback={<p>Loading...</p>}>
               <AddTodo onCreate={addTodo}/>
             </React.Suspense>
